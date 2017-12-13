@@ -159,6 +159,8 @@ def closeMaya(give):
     # evn=mel.eval('$s=`getenv "PATH"`;')
     # subprocess.call('\"'+ sys.argv[0]+'\"', shell=True)
 
+def cleanmysence(arry):
+    mel.eval(('cleanUpScene 1'))
 
 '''show window'''
 if cmds.window('AR_optionsWindow', ex=True):
@@ -171,5 +173,7 @@ cmds.button(l='查看项目路径',c=showworkspace)
 cmds.button(l='显示FumeFX缓存文件', c=showFumeFX)
 cmds.button(l='显示Realflow缓存文件', c=showRealfowcache)
 cmds.button(l='设置maya2016视口模式', c=setViewport)
+cmds.button(l='清理场景',c=cleanmysence)
+
 
 cmds.showWindow(win)
