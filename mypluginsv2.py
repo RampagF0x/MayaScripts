@@ -1,9 +1,13 @@
 # coding=utf-8
 import maya.cmds as cmds
+
 import maya.mel as mel
 import sys
+import os
 import subprocess
-
+sys.path.append('/Users/apple/Documents/python/MayaPython')
+from ProxyWindow import *
+print sys.path
 print sys.version
 version = sys.version
 plugins = cmds.pluginInfo(query=True, pluginsInUse=True)
@@ -163,17 +167,17 @@ def cleanmysence(arry):
     mel.eval(('cleanUpScene 1'))
 
 
-def CheckProxy(self):
-    cmds.confirmDialog(t='提示', m='okokok', b='OK')
+
         
 
 
 '''show window'''
 def MainWidow():
-    if cmds.window('AR_optionsWindow', ex=True):
-        cmds.deleteUI('AR_optionsWindow', wnd=True)
-    win = cmds.window('AR_optionsWindow', title='MyPlugins', widthHeight=(500, 200))
-    cmds.columnLayout(adj=True)
+    if cmds.dockControl('MainDock', ex=True):
+        cmds.deleteUI('MainDock')
+    #win = cmds.window('Mainplugins', title='MyPlugins', widthHeight=(500, 200))
+    Mywindow = cmds.window(widthHeight=(100, 100))
+    bufttonForm = cmds.columnLayout('MainLay', adj=True)
     cmds.button(en=False, l='python ' + version)
     cmds.button(l='显示场景插件', c=showPlugins)
     cmds.button(l='查看项目路径', c=showworkspace)
@@ -182,18 +186,10 @@ def MainWidow():
     cmds.button(l='设置maya2016视口模式', c=setViewport)
     cmds.button(l='清理场景', c=cleanmysence)
     cmds.button(l='检查代理', c=ProxyWindow)
-    cmds.showWindow(win)
+    allowedAreas = ['right', 'left']
+    cmds.dockControl('MainDock', l='Myplugins', area='right', allowedArea=allowedAreas, content=Mywindow)
+    #cmds.showWindow(win)
 
-def ProxyWindow(any):
-    if cmds.window('Proxy_optionsWindow', ex=True):
-        cmds.deleteUI('Proxy_optionsWindow', wnd=True)
-    win2 = cmds.window('Proxy_optionsWindow', title='Proxy_Window', widthHeight=(500, 200))
-    cmds.columnLayout(adj=True)
-    cmds.button(en=False, l='')
-    cmds.button(l='Arnold代理')
-    cmds.columnLayout(adj=True)
-    cmds.button(l='Redshift代理')
 
-    cmds.showWindow(win2)
 
 MainWidow()
